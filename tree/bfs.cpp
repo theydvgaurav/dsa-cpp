@@ -16,9 +16,10 @@ void bfs(int start){
         cout << curr << "\n";
         Q.pop();
         for(auto it: Adj[curr]){
-            if(!mp[it])
+            if(!mp[it]){
                 mp[it] = true;
                 Q.push(it);
+            }
         }
             
     }
@@ -35,6 +36,5 @@ int main() {
         Adj[v].push_back(u);
     }
     bfs(1);
-	return 0;
+    return 0;
 }
-
