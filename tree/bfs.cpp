@@ -3,25 +3,21 @@ using namespace std;
 
 int n;
 vector<vector<int>> Adj;
-queue<int> Q;
 map<int,bool> mp;
 // using map to mark visited nodes
 // as here I don't have the parent of a node
 
-void bfs(){
-    int curr = Q.front();
-    Q.pop();
-    mp[curr] = true;
-    cout << curr << "\n";
-    for(auto it: Adj[curr])
-        Q.push(it);
+void bfs(int start){
+    queue<int> Q;
+    Q.push(start);
+    mp[start] = true;
     while(!Q.empty()){
-        curr = Q.front();
+        int curr = Q.front();
         cout << curr << "\n";
-        mp[curr] = true;
         Q.pop();
         for(auto it: Adj[curr]){
             if(!mp[it])
+                mp[it] = true;
                 Q.push(it);
         }
             
@@ -29,7 +25,6 @@ void bfs(){
 }
 
 int main() {
-    init_code();
     cin >> n;
     Adj.resize(n+1);
     
@@ -39,8 +34,7 @@ int main() {
         Adj[u].push_back(v);
         Adj[v].push_back(u);
     }
-    Q.push(1);
-    bfs();
+    bfs(1);
 	return 0;
 }
 

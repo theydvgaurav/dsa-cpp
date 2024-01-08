@@ -16,33 +16,23 @@ void init_code(){
 
 int n;
 vector<vector<int>> Adj;
-queue<int> Q;
 map<int,bool> mp;
+// using map to mark visited nodes
+// as here I don't have the parent of a node
 
-void dfs(int curr, int par){
-    cout << curr << "\n";
-    for(auto it: Adj[curr]){
-        if (it != par){
-            dfs(it,curr);
-        }
-    }
-}
-
-void bfs(){
-    int curr = Q.front();
-    Q.pop();
-    mp[curr] = true;
-    cout << curr << "\n";
-    for(auto it: Adj[curr])
-        Q.push(it);
+void bfs(int start){
+    queue<int> Q;
+    Q.push(start);
+    mp[start] = true;
     while(!Q.empty()){
-        curr = Q.front();
+        int curr = Q.front();
         cout << curr << "\n";
-        mp[curr] = true;
         Q.pop();
         for(auto it: Adj[curr]){
-            if(!mp[it])
+            if(!mp[it]){
+                mp[it] = true;
                 Q.push(it);
+            }
         }
             
     }
@@ -59,9 +49,6 @@ int main() {
         Adj[u].push_back(v);
         Adj[v].push_back(u);
     }
-    Q.push(1);
-    // dfs(1,-1);
-    bfs();
-	return 0;
+    bfs(1);
+    return 0;
 }
-
